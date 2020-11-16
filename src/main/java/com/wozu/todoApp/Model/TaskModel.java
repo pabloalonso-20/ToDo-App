@@ -48,4 +48,14 @@ public class TaskModel {
     public void setComplete(Boolean complete) {
         isComplete = complete;
     }
+
+    @Override
+    public String toString() {
+        return "TaskModel{" +
+                "id=" + id +
+                ", todoListModel=" + todoListModel +
+                ", description='" + description + '\'' +
+                ", isComplete=" + isComplete +
+                '}';
+    }
 }

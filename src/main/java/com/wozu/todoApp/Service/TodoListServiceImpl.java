@@ -50,6 +50,14 @@ public class TodoListServiceImpl implements TodoListService{
     }
 
     @Override
+    public JSONObject deleteTodoListByTitle(String title) {
+        todoListRepo.deleteTodoListByTitle(title);
+
+        JSONObject response = new JSONObject();
+        return response;
+    }
+
+    @Override
     public JSONObject updateTodoListById(UUID id, TodoListModel newTodoList) {
         Optional<TodoListModel> optionalTodoListModel = todoListRepo.findById(id);
         optionalTodoListModel.map(todoListModel -> {
@@ -62,6 +70,21 @@ public class TodoListServiceImpl implements TodoListService{
         response.put("message","updated all todo list");
         return response;
     }
+
+    @Override
+    public JSONObject updateTodoListByTitle(String title, TodoListModel newTodoList) {
+        Optional<TodoListModel> optionalTodoListModel = todoListRepo.findTodoListByTitle(title);
+        optionalTodoListModel.map(todoListModel -> {
+            todoListModel.setTitle(newTodoList.getTitle());
+            todoListModel.setTasks(newTodoList.getTasks());
+            return todoListModel;
+        });
+
+        JSONObject response = new JSONObject();
+        response.put("message", "updated all todo list");
+        return response;
+    }
+
 
     @Override
     public JSONObject postTodoList(TodoListModel todoListModel) {

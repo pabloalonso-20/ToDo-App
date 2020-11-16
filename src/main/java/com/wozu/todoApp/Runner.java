@@ -14,19 +14,13 @@ import java.util.Optional;
 public class Runner implements CommandLineRunner {
 
     @Autowired
-    static TaskRepo taskRepo;
+    TaskRepo taskRepo;
 
     @Autowired
-    static TodoListRepo todoListRepo;
+    TodoListRepo todoListRepo;
 
     @Override
     public void run(String... args) throws Exception {
-        seed();
-    }
-
-
-    public static void seed(){
-
         if(taskRepo.count() == 0 && todoListRepo.count() == 0){
             TodoListModel newTodoList = new TodoListModel("Chores");
 
@@ -37,7 +31,7 @@ public class Runner implements CommandLineRunner {
             TaskModel newTask = new TaskModel(optionalTodoListModel.get(), "Clean Room");
 
             taskRepo.save(newTask);
+            System.out.println("Database seeded");
         }
-
     }
 }
